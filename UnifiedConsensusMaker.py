@@ -526,21 +526,23 @@ def main():
                         f"+{dcs_read_2[1]}:{dcs_read_2[2]}\n"
                         f"{r2QualStr}\n"
                         )
+            
+            if line != FinalValue:
+                
+                # reset conditions for next tag family
+                first_line = line
+                seq_dict = {'ab:1': [], 'ab:2': [], 'ba:1': [], 'ba:2': []}
+                qual_dict = {'ab:1': [], 'ab:2': [], 'ba:1': [], 'ba:2': []}
+                read1_dcs_len = 0
+                read2_dcs_len = 0
+                dcs_read_1 = ''
+                dcs_read_2 = ''
 
-            # reset conditions for next tag family
-            first_line = line
-            seq_dict = {'ab:1': [], 'ab:2': [], 'ba:1': [], 'ba:2': []}
-            qual_dict = {'ab:1': [], 'ab:2': [], 'ba:1': [], 'ba:2': []}
-            read1_dcs_len = 0
-            read2_dcs_len = 0
-            dcs_read_1 = ''
-            dcs_read_2 = ''
-
-            seq_dict[line.query_name.split('#')[1]].append(line.query_sequence)
-            # Now add initializing data for new tag
-            qual_dict[first_line.query_name.split('#')[1]].append(
-                list(first_line.query_qualities)
-                )
+                seq_dict[line.query_name.split('#')[1]].append(line.query_sequence)
+                # Now add initializing data for new tag
+                qual_dict[first_line.query_name.split('#')[1]].append(
+                    list(first_line.query_qualities)
+                    )
     
 # Try to plot the tag family sizes
     if o.tagstats is True:
