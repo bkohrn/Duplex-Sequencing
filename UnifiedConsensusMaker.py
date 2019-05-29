@@ -50,17 +50,18 @@ class iteratorWrapper:
         self.finalValue = finalValue
         self.endIter = False
     def __iter__(self):
-        return self
-    def next(self):
+        return(self)
+    def __next__(self):
         try:
-            temp = self.it.next()
+            temp = next(self.it)
         except StopIteration:
             if self.endIter == False:
                 temp = self.finalValue
                 self.endIter = True
             else:
-                raise StopIteration
-        return temp
+                raise(StopIteration)
+        return(temp)
+    next = __next__
 
 def consensus_caller(input_reads, cutoff, tag, length_check):
 
